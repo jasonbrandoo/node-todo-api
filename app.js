@@ -2,15 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const app = express()   ;
+const app = express();
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/api');
+mongoose.connect(process.env.DB_HOST);
 const db = mongoose.connection;
 db.on('error', () => {
   console.log('error');
 });
 db.once('open', () => {
-  console.log('Connected to databse');
+  console.log('Connected to database');
 });
 
 app.use(morgan('dev'));
